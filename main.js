@@ -1,5 +1,4 @@
 const blogList = document.getElementById("blogList");
-const webSite = "https://www.cuidadodesalud.gov"
 let blog = [];
 
 document.forms["myForm"].onsubmit = function (e) {
@@ -38,7 +37,15 @@ const loadCharacters = async () => {
     console.error(err);
   }
 };
-
+const viewContent = () => {
+  const content = document.getElementById("content");
+  
+  if(content.style.display == "block"){
+    content.style.display = "none"
+  } else{
+    content.style.display = "block"
+  }
+}
 const displayBlogs = (blogs) => {
   const htmlString = blogs
     .map((blog) => {
@@ -46,13 +53,16 @@ const displayBlogs = (blogs) => {
             <li class="blog">
                 <p>Title : ${blog.title}</p>
                 <p>Language : ${blog.lang}</p>
-                <p>Date: ${blog.date}</p>
                 <p>Topic: ${blog.topics}</p>
-                <p><a href= ${webSite}${blog.url} target="_blank">View</a></p>
+                <p>Date: ${blog.date}</p>
+                <p id="content">${blog.content}</p>
+                <button onclick="viewContent()">View</button>
             </li>
         `;
     })
     .join("");
   blogList.innerHTML = htmlString;
 };
+
+
 loadCharacters();
